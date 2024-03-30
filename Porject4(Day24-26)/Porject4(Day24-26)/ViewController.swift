@@ -29,8 +29,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
         let progresButton = UIBarButtonItem(customView: progressView)
+        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
+        let forwardButton = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
         
-        toolbarItems = [progresButton, spacer, refresh]
+        toolbarItems = [backButton, progresButton, spacer, refresh, forwardButton]
         navigationController?.isToolbarHidden = false
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -77,6 +79,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
             }
         }
         decisionHandler(.cancel)
+        let ac = UIAlertController(title: "Oops! Cannot navigate to this URL.", message: nil, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(ac, animated: true)
     }
 }
 

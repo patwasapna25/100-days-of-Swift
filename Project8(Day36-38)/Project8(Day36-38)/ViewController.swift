@@ -116,6 +116,11 @@ class ViewController: UIViewController {
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
                 letterButton.setTitle("WWW", for: .normal)
                 letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.lightGray.cgColor
+                letterButton.layer.cornerRadius = 5
+                letterButton.clipsToBounds = true
+                letterButton.setTitleColor(UIColor.black, for: .normal)
                 
                 let frame = CGRect(x: column * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
@@ -154,11 +159,18 @@ class ViewController: UIViewController {
             score += 1
             currentAnswer.text = ""
             
-            if score % 7 == 0 {
+            if score > 0 && score % 7 == 0 {
                 let ac = UIAlertController(title: "Well Done!!", message: "Are you ready for next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            let ac = UIAlertController(title: "Opps! Wrong Answer", message: "Let's try again!", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in 
+                self?.resetSelection()
+            })
+            present(ac, animated: true)
+            score -= 1
         }
     }
     
@@ -173,6 +185,10 @@ class ViewController: UIViewController {
     }
     
     @objc func clearTapped(_ sender: UIButton) {
+        resetSelection()
+    }
+    
+    func resetSelection() {
         currentAnswer.text = ""
         for button in activatedButtons {
             button.isHidden = false

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "8316C7B3-C521-4D4A-AA53-B383CA9250D2"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D5CF2BFE-5ED4-4B8D-9B6B-7AD788D83A40"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project7(Day33-35)/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D5CF2BFE-5ED4-4B8D-9B6B-7AD788D83A40 - 51444fd27f36c560"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project7_Day33_35_.ViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Project7(Day33-35)"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/spatwa/Desktop/100%20Days%20of%20Swift/Project9(Day39-40)/Project7(Day33-35)/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "860">
+               </Location>
+               <Location
+                  uuid = "D5CF2BFE-5ED4-4B8D-9B6B-7AD788D83A40 - 51444fd27f36c560"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Project7_Day33_35_.ViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "Project7(Day33-35)"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/spatwa/Desktop/100%20Days%20of%20Swift/Project9(Day39-40)/Project7(Day33-35)/ViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "856">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

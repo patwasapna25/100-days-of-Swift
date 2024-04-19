@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B23B9812BD2FC060099AB0B /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B23B9802BD2FC060099AB0B /* Person.swift */; };
 		1B4CE2842BD2ED2C00183FEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4CE2832BD2ED2C00183FEE /* AppDelegate.swift */; };
 		1B4CE2862BD2ED2C00183FEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4CE2852BD2ED2C00183FEE /* SceneDelegate.swift */; };
 		1B4CE2882BD2ED2C00183FEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4CE2872BD2ED2C00183FEE /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B23B9802BD2FC060099AB0B /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		1B4CE2802BD2ED2C00183FEE /* Project10(Day42-44).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project10(Day42-44).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B4CE2832BD2ED2C00183FEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B4CE2852BD2ED2C00183FEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,7 @@
 		1B4CE2772BD2ED2B00183FEE = {
 			isa = PBXGroup;
 			children = (
+				1B23B9802BD2FC060099AB0B /* Person.swift */,
 				1B4CE2822BD2ED2C00183FEE /* Project10(Day42-44) */,
 				1B4CE2812BD2ED2C00183FEE /* Products */,
 			);
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B23B9812BD2FC060099AB0B /* Person.swift in Sources */,
 				1B4CE2882BD2ED2C00183FEE /* ViewController.swift in Sources */,
 				1B4CE2842BD2ED2C00183FEE /* AppDelegate.swift in Sources */,
 				1B4CE2982BD2EF1C00183FEE /* PersonCell.swift in Sources */,

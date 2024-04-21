@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B5B38402BD565D500D618E4 /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1B5B383F2BD565D500D618E4 /* FireParticles.sks */; };
 		1B5E9F422BD4438D0010EA5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E9F412BD4438D0010EA5C /* AppDelegate.swift */; };
 		1B5E9F442BD4438D0010EA5C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1B5E9F432BD4438D0010EA5C /* GameScene.sks */; };
 		1B5E9F482BD4438D0010EA5C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5E9F472BD4438D0010EA5C /* GameScene.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B5B383F2BD565D500D618E4 /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
 		1B5E9F3E2BD4438D0010EA5C /* Project11-Day45-47.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project11-Day45-47.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5E9F412BD4438D0010EA5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B5E9F432BD4438D0010EA5C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				1B5E9F4B2BD4438D0010EA5C /* Main.storyboard */,
 				1B5E9F4E2BD4438E0010EA5C /* Assets.xcassets */,
 				1B5E9F502BD4438E0010EA5C /* LaunchScreen.storyboard */,
+				1B5B383F2BD565D500D618E4 /* FireParticles.sks */,
 			);
 			path = "Project11-Day45-47";
 			sourceTree = "<group>";
@@ -128,6 +131,7 @@
 			files = (
 				1B5E9F4D2BD4438D0010EA5C /* Main.storyboard in Resources */,
 				1B5E9F442BD4438D0010EA5C /* GameScene.sks in Resources */,
+				1B5B38402BD565D500D618E4 /* FireParticles.sks in Resources */,
 				1B5E9F4F2BD4438E0010EA5C /* Assets.xcassets in Resources */,
 				1B5E9F522BD4438E0010EA5C /* LaunchScreen.storyboard in Resources */,
 			);

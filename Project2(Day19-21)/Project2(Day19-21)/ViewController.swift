@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     var score = 0
     var count = 0
     var correctAnswer = 0
+    var highScore = 0
+    var highScoreFlagShown = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,16 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         askQuestion(action: nil)
+        
+        if let savedScore = UserDefaults.standard.data(forKey: "score") {
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                highScore = try jsonDecoder.decode(Int.self, from: savedScore)
+            } catch {
+                print("Failed to decode data")
+            }
+        }
     }
     
     func askQuestion(action: UIAlertAction!) {
@@ -47,6 +59,7 @@ class ViewController: UIViewController {
                 self?.score = 0
                 self?.count = 0
                 self?.askQuestion(action: nil)
+                self?.save()
             }))
             present(ac, animated: true)
         }
@@ -58,6 +71,15 @@ class ViewController: UIViewController {
         if sender.tag == correctAnswer {
             title = "Correct"
             score += 1
+            if (score > highScore) {
+                highScore = score
+                if !highScoreFlagShown {
+                    let ac = UIAlertController(title: "High Score!!", message: "Your high score is \(score).", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Continue", style: .default))
+                    present(ac, animated: true)
+                    highScoreFlagShown = true
+                }
+            }
         } else {
             title = "Wrong! That’s the flag of \(countries[sender.tag])"
             score -= 1
@@ -66,6 +88,16 @@ class ViewController: UIViewController {
         let ac = UIAlertController(title: title, message: "Your score is \(score).", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
         present(ac, animated: true)
+    }
+    
+    // challenge for Day49
+    func save() {
+        let jsonEncoder = JSONEncoder()
+        if let savedData = try? jsonEncoder.encode(highScore) {
+            UserDefaults.standard.setValue(savedData, forKey: "score")
+        } else {
+            print("Failed to encode data")
+        }
     }
 }
 

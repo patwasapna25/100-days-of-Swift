@@ -53,8 +53,8 @@
                                     <action selector="save:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cif-Xq-5WP"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQs-0U-bKG">
-                                <rect key="frame" x="16" y="103" width="361" height="566"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQs-0U-bKG">
+                                <rect key="frame" x="16" y="87" width="361" height="583"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jxU-eR-ASm">
                                         <rect key="frame" x="8" y="10" width="342" height="548"/>
@@ -91,7 +91,7 @@
                     <navigationItem key="navigationItem" id="VBY-Mk-hWX"/>
                     <connections>
                         <outlet property="imageView" destination="jxU-eR-ASm" id="wDs-in-ZEQ"/>
-                        <outlet property="intenstiy" destination="Rdn-eW-hLL" id="lSr-fp-WS0"/>
+                        <outlet property="intensity" destination="Rdn-eW-hLL" id="lSr-fp-WS0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

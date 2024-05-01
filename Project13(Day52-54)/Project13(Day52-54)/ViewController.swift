@@ -11,6 +11,7 @@ import CoreImage
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var intensity: UISlider!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var changeFilter: UIButton!
     var currentImage: UIImage!
     
     var context: CIContext!
@@ -51,6 +52,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let actionTitle = action.title else { return }
 
         currentFilter = CIFilter(name: actionTitle)
+        changeFilter.setTitle(actionTitle, for: .normal)
 
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
@@ -61,6 +63,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBAction func save(_ sender: Any) {
         guard let image = imageView.image else {
+            let ac = UIAlertController(title: "No Image", message: "Please select a Image to save", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
             return
         }
         

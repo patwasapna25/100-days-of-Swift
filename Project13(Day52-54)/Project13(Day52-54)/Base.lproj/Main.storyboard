@@ -31,8 +31,8 @@
                                     <action selector="intensityChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="zQn-oI-hva"/>
                                 </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P71-S3-mmH">
-                                <rect key="frame" x="16" y="730" width="130" height="34.333333333333371"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P71-S3-mmH">
+                                <rect key="frame" x="16" y="730" width="200" height="34.333333333333329"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="130" id="Tte-P4-xQF"/>
                                 </constraints>
@@ -90,6 +90,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="VBY-Mk-hWX"/>
                     <connections>
+                        <outlet property="changeFilter" destination="P71-S3-mmH" id="POP-6f-VxX"/>
                         <outlet property="imageView" destination="jxU-eR-ASm" id="wDs-in-ZEQ"/>
                         <outlet property="intensity" destination="Rdn-eW-hLL" id="lSr-fp-WS0"/>
                     </connections>

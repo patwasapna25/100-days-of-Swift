@@ -17,6 +17,7 @@
 		1B6BA5E22BE56BF6009D8B0C /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1B6BA5E02BE56BF6009D8B0C /* whackBad.caf */; };
 		1B6BA5E32BE56BF6009D8B0C /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1B6BA5E12BE56BF6009D8B0C /* whack.caf */; };
 		1B6BA5E52BE56E5A009D8B0C /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6BA5E42BE56E5A009D8B0C /* WhackSlot.swift */; };
+		1B6BA5E72BE57FE9009D8B0C /* gameOver.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 1B6BA5E62BE57FE9009D8B0C /* gameOver.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		1B6BA5E02BE56BF6009D8B0C /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whackBad.caf; sourceTree = "<group>"; };
 		1B6BA5E12BE56BF6009D8B0C /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whack.caf; sourceTree = "<group>"; };
 		1B6BA5E42BE56E5A009D8B0C /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
+		1B6BA5E62BE57FE9009D8B0C /* gameOver.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameOver.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				1B6BA5D82BE56AFF009D8B0C /* LaunchScreen.storyboard */,
 				1B6BA5E12BE56BF6009D8B0C /* whack.caf */,
 				1B6BA5E02BE56BF6009D8B0C /* whackBad.caf */,
+				1B6BA5E62BE57FE9009D8B0C /* gameOver.m4a */,
 			);
 			path = "Project14-Day55-56";
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 				1B6BA5E22BE56BF6009D8B0C /* whackBad.caf in Resources */,
 				1B6BA5D52BE56AFE009D8B0C /* Main.storyboard in Resources */,
 				1B6BA5CC2BE56AFE009D8B0C /* GameScene.sks in Resources */,
+				1B6BA5E72BE57FE9009D8B0C /* gameOver.m4a in Resources */,
 				1B6BA5D72BE56AFF009D8B0C /* Assets.xcassets in Resources */,
 				1B6BA5DA2BE56AFF009D8B0C /* LaunchScreen.storyboard in Resources */,
 				1B6BA5E32BE56BF6009D8B0C /* whack.caf in Resources */,

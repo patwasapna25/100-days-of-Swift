@@ -141,7 +141,12 @@ class ViewController: UIViewController {
         }
         currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
         activatedButtons.append(sender)
-        sender.isHidden = true
+        // challenge from project 15
+        UIView.animate(withDuration: 1, delay: 0, animations: {
+            sender.alpha = 0
+        }, completion: { finished in
+            sender.isHidden = true
+        })
     }
     
     @objc func submitTapped(_ sender: UIButton) {

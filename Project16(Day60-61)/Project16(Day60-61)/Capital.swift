@@ -12,10 +12,12 @@ class Capital: NSObject, MKAnnotation {
     var title: String?
     var coordinate: CLLocationCoordinate2D
     var info: String
+    var wikiLink: String
     
-    init(title: String? = nil, coordinate: CLLocationCoordinate2D, info: String) {
+    init(title: String? = nil, coordinate: CLLocationCoordinate2D, info: String, wikiLink: String) {
         self.title = title
         self.coordinate = coordinate
         self.info = info
+        self.wikiLink = wikiLink
     }
 }

@@ -5,6 +5,10 @@
 //  Created by Sapna Patwa on 07/05/24.
 //
 
+/**
+ The game we're going to produce is a very simple survival game: our player will have to pilot a spaceship safely through a field of space junk. The longer they stay alive the higher their score will be, but they need to keep moving otherwise certain death awaits!
+ */
+
 import SpriteKit
 import GameplayKit
 
@@ -16,6 +20,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var possibleEnemies = ["ball", "hammer", "tv"]
     var gameTimer: Timer?
     var isGameOver = false
+    var timeinterval: TimeInterval = 0 {
+        didSet {
+            gameTimer?.invalidate()
+            gameTimer = Timer.scheduledTimer(timeInterval: timeinterval, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        }
+    }
+    var numberOfEnemies = 0 {
+        didSet {
+            if numberOfEnemies.isMultiple(of: 20) {
+                timeinterval -= 0.1
+            }
+        }
+    }
     
     var score = 0 {
         didSet {
@@ -48,13 +65,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         physicsWorld.gravity = .zero
         physicsWorld.contactDelegate = self
         
-        gameTimer = Timer.scheduledTimer(timeInterval: 0.35, target: self, selector: #selector(createEnemy), userInfo: nil, repeats: true)
+        timeinterval = 1
     }
     
     @objc func createEnemy() {
         guard let enemy = possibleEnemies.randomElement() else {
             return
         }
+        numberOfEnemies += 1
         
         let sprite = SKSpriteNode(imageNamed: enemy)
         sprite.position = CGPoint(x: 1200, y: Int.random(in: 50...736))
@@ -91,12 +109,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.position = location
     }
     
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard touches.first != nil else { return }
+        removePlayer()
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
-        let explosion = SKEmitterNode(fileNamed: "explosion")!
-        explosion.position = player.position
-        addChild(explosion)
-        
-        player.removeFromParent()
-        isGameOver = true
+        removePlayer()
+    }
+    
+    func removePlayer() {
+        if children.contains(player) {
+            let explosion = SKEmitterNode(fileNamed: "explosion")!
+            explosion.position = player.position
+            addChild(explosion)
+            
+            player.removeFromParent()
+            isGameOver = true
+            gameTimer?.invalidate()
+        }
     }
 }

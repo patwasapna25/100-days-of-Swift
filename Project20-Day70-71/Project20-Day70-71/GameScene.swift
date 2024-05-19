@@ -11,6 +11,7 @@ import GameplayKit
 class GameScene: SKScene {
     var gameTimer: Timer?
     var fireworks = [SKNode]()
+    var scoreLabel: SKLabelNode!
     
     let leftEdge = -22
     let bottomEdge = -22
@@ -18,7 +19,21 @@ class GameScene: SKScene {
     
     var score = 0 {
         didSet {
-            
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    
+    var lanuches = 0 {
+        didSet {
+            if lanuches > 4 {
+                gameTimer?.invalidate()
+                let gameOver = SKLabelNode(fontNamed: "Chalkduster")
+                gameOver.fontSize = 52
+                gameOver.text = "Game Over"
+                gameOver.position = CGPoint(x: 512, y: 384)
+                gameOver.zPosition = 1
+                addChild(gameOver)
+            }
         }
     }
     
@@ -28,6 +43,14 @@ class GameScene: SKScene {
         background.blendMode = .replace
         background.zPosition = -1
         addChild(background)
+        
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.fontSize = 36
+        scoreLabel.position = CGPoint(x: 16, y: 16)
+        scoreLabel.horizontalAlignmentMode = .left
+        addChild(scoreLabel)
+        
+        score = 0
         
         gameTimer = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(launchFireworks), userInfo: nil, repeats: true)
         
@@ -67,6 +90,7 @@ class GameScene: SKScene {
     }
     
     @objc func launchFireworks() {
+        lanuches += 1
         let movementAmount: CGFloat = 1800
         
         switch Int.random(in: 0...3) {
@@ -146,6 +170,47 @@ class GameScene: SKScene {
                 fireworks.remove(at: index)
                 firework.removeFromParent()
             }
+        }
+    }
+    
+    func explode(firework: SKNode) {
+        if let emitter = SKEmitterNode(fileNamed: "explode") {
+            emitter.position = firework.position
+            addChild(emitter)
+        }
+        let wait = SKAction.wait(forDuration: 0.01)
+        let remove = SKAction.removeFromParent()
+        firework.run(SKAction.sequence([wait, remove]))
+    }
+    
+    func explodeFireworks() {
+        var numExploded = 0
+        
+        for (index, container) in fireworks.enumerated().reversed() {
+            guard let firework = container.children.first as? SKSpriteNode else {
+                continue
+            }
+            
+            if firework.name == "selected" {
+                explode(firework: container)
+                fireworks.remove(at: index)
+                numExploded += 1
+            }
+        }
+        
+        switch numExploded {
+        case 0:
+            break
+        case 1:
+            score += 200
+        case 2:
+            score += 500
+        case 3:
+            score += 1500
+        case 4:
+            score += 2500
+        default:
+            score += 4000
         }
     }
 }

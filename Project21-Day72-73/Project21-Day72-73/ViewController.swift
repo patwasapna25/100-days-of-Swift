@@ -56,7 +56,8 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         center.delegate = self
         
         let show = UNNotificationAction(identifier: "show", title: "Tell me more...", options: .foreground)
-        let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [], options: [])
+        let remind = UNNotificationAction(identifier: "remind", title: "Remind me Later...", options: .foreground)
+        let category = UNNotificationCategory(identifier: "alarm", actions: [show, remind], intentIdentifiers: [])
         
         center.setNotificationCategories([category])
     }
@@ -66,16 +67,26 @@ class ViewController: UIViewController, UNUserNotificationCenterDelegate {
         
         if let customData = userInfo["customData"] as? String {
             print("Custom data received: \(customData)")
+            var title = ""
             
             switch response.actionIdentifier {
             case UNNotificationDefaultActionIdentifier:
-                // the user swiped to unloak
+                // the user swiped to unlock
+                title = "Swiped to unlock"
                 print("Default Identifier")
             case "show":
+                title = "Tapped Show more"
                 print("Show more information...")
+            case "remind":
+                scheduleLocal()
+                print("Will Remind later...")
             default:
                 break
             }
+            
+            let ac = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
         }
         
         completionHandler()

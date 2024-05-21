@@ -10,8 +10,10 @@ import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
+    @IBOutlet var circle: UIView!
     @IBOutlet var distanceReading: UILabel!
     var locationManager: CLLocationManager?
+    var alertShown = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func update(distance: CLProximity) {
         UIView.animate(withDuration: 0.8) {
+            UIView.animate(withDuration: 8) {
+                self.circle.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+            }
             switch distance {
             case .far:
                 self.view.backgroundColor = UIColor.blue
@@ -66,6 +71,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
         if let beacon = beacons.first {
             update(distance: beacon.proximity)
+            if !alertShown {
+                let ac = UIAlertController(title: "Beacon Detected!", message: nil, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
         } else {
             update(distance: .unknown)
         }

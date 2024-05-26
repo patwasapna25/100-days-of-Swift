@@ -19,6 +19,7 @@ let letter2 = name[3]
 let passsword = "12345"
 passsword.hasPrefix("123")
 passsword.hasSuffix("456")
+passsword.withPrefix("Sap")
 
 extension String {
     func deletingPrefix(_ prefix: String) -> String {
@@ -30,7 +31,26 @@ extension String {
         guard self.hasSuffix(suffix) else { return self }
         return String(self.dropLast(suffix.count))
     }
+    
+    // challenge
+    func withPrefix(_ prefix: String) -> String {
+        guard !self.hasPrefix(prefix) else { return self }
+        return prefix + self
+    }
+    
+    var isNumeric: Bool {
+        return Double(self) != nil
+    }
+    
+    var lines: [String] {        
+        return self.components(separatedBy: "\n")
+    }
 }
+
+"5".isNumeric
+"24.2".isNumeric
+"thirty".isNumeric
+"this\nis\na\ntest".lines
 
 let weather = "its going to rain"
 print(weather.capitalized)

@@ -5,6 +5,10 @@
 //  Created by Sapna Patwa on 23/05/24.
 //
 
+
+/** Simpler version of Fruit cut ninja */
+
+
 import SpriteKit
 import AVFoundation
 
@@ -13,10 +17,21 @@ enum ForceBomb {
 }
 
 enum SequenceType: CaseIterable {
-    case oneNoBomb, one, twoWithOneBomb, two, three, four, chain, fastChain
+    case oneNoBomb, one, oneSpecial, twoWithOneBomb, two, three, four, chain, fastChain
 }
 
 class GameScene: SKScene {
+    var xPositionStart = 64
+    var xPositionEnd = 960
+    var yPosition = 128
+    var angularVelocity = 3.0
+    var xVelocityStart1 = 3
+    var xVelocityStart2 = 8
+    var xVelocityEnd1 = 5
+    var xVelocityEnd2 = 15
+    var yVelocityStart = 24
+    var yVelocityEnd = 32
+
     var gameScore: SKLabelNode!
     
     var score = 0 {
@@ -58,7 +73,7 @@ class GameScene: SKScene {
         createLives()
         createSlices()
         
-        sequence = [.oneNoBomb, .oneNoBomb, .twoWithOneBomb, .twoWithOneBomb, .three, .one, .chain]
+        sequence = [.oneNoBomb, .oneNoBomb, .oneSpecial, .oneSpecial, .twoWithOneBomb, .twoWithOneBomb, .three, .one, .chain]
 
         for _ in 0 ... 1000 {
             if let nextSequence = SequenceType.allCases.randomElement() {
@@ -120,12 +135,14 @@ class GameScene: SKScene {
         
         let nodesAtPoint = nodes(at: location)
         for case let node as SKSpriteNode in nodesAtPoint {
-            if node.name == "enemy" {
+            if node.name == "enemy" || node.name == "special" {
                 //destroy penguine
                 if let emitter = SKEmitterNode(fileNamed: "sliceHitEnemy") {
                     emitter.position = node.position
                     addChild(emitter)
                 }
+                score += (node.name == "special") ? 5 : 1
+                
                 node.name = ""
                 node.physicsBody?.isDynamic = false
                 
@@ -136,7 +153,6 @@ class GameScene: SKScene {
                 let seq = SKAction.sequence([group, .removeFromParent()])
                 node.run(seq)
                 
-                score += 1
                 
                 if let index = activeEnemies.firstIndex(of: node) {
                     activeEnemies.remove(at: index)
@@ -186,6 +202,11 @@ class GameScene: SKScene {
             livesImages[1].texture = SKTexture(imageNamed: "sliceLifeGone")
             livesImages[2].texture = SKTexture(imageNamed: "sliceLifeGone")
         }
+        
+        let gameOver = SKSpriteNode(imageNamed: "gameOver")
+        gameOver.position = CGPoint(x: 512, y: 384)
+        gameOver.zPosition = 1
+        addChild(gameOver)
     }
     
     func playShoowsSound() {
@@ -245,8 +266,9 @@ class GameScene: SKScene {
         activeSliceFG.path = path.cgPath
     }
     
-    func createEnemy(forceBomb: ForceBomb = .random) {
+    func createEnemy(forceBomb: ForceBomb = .random, specialEnemy: Bool = false) {
         let enemy: SKSpriteNode
+        var spEnemy = specialEnemy
         
         var enemyType = Int.random(in: 0...6)
         
@@ -254,6 +276,10 @@ class GameScene: SKScene {
             enemyType = 1
         } else if forceBomb == .always {
             enemyType = 0
+        }
+        
+        if !specialEnemy && enemyType == 2 {
+            spEnemy = true
         }
         
         if enemyType == 0 {
@@ -282,28 +308,36 @@ class GameScene: SKScene {
                 enemy.addChild(emitter)
             }
         } else {
-            enemy = SKSpriteNode(imageNamed: "penguin")
+            enemy = spEnemy ? SKSpriteNode(imageNamed: "ballRed") : SKSpriteNode(imageNamed: "penguin")
             run(SKAction.playSoundFileNamed("launch.caf", waitForCompletion: false))
-            enemy.name = "enemy"
+            enemy.name = spEnemy ? "special" : "enemy"
         }
         
-        let randomPosition = CGPoint(x: Int.random(in: 64...960), y: -128)
+        let randomPosition = CGPoint(x: Int.random(in: xPositionStart...xPositionEnd), y: -yPosition)
         enemy.position = randomPosition
         
-        let randomAngularVelocity = CGFloat.random(in: -3...3)
+        if spEnemy {
+            angularVelocity *= 2
+            xVelocityStart1 = 6
+            xVelocityStart2 = 10
+            xVelocityEnd1 = 8
+            yVelocityStart = 30
+        }
+        
+        let randomAngularVelocity = CGFloat.random(in: -angularVelocity...angularVelocity)
         let randomXVelocity: Int
         
         if randomPosition.x < 256 {
-            randomXVelocity = Int.random(in: 8...15)
+            randomXVelocity = Int.random(in: xVelocityStart2...xVelocityEnd2)
         } else if randomPosition.x < 512 {
-            randomXVelocity = Int.random(in: 3...5)
+            randomXVelocity = Int.random(in: xVelocityStart1...xVelocityEnd1)
         } else if randomPosition.x < 768 {
-            randomXVelocity = -Int.random(in: 3...5)
+            randomXVelocity = -Int.random(in: xVelocityStart1...xVelocityEnd1)
         } else {
-            randomXVelocity = -Int.random(in: 8...15)
+            randomXVelocity = -Int.random(in: xVelocityStart2...xVelocityEnd2)
         }
         
-        let randomYVelocity = Int.random(in: 24...32)
+        let randomYVelocity = Int.random(in: yVelocityStart...yVelocityEnd)
         
         enemy.physicsBody = SKPhysicsBody(circleOfRadius: 64)
         enemy.physicsBody?.velocity = CGVector(dx: randomXVelocity * 40, dy: randomYVelocity * 40)
@@ -329,6 +363,9 @@ class GameScene: SKScene {
             
         case .one:
             createEnemy()
+            
+        case .oneSpecial:
+            createEnemy(forceBomb: .never, specialEnemy: true)
             
         case .twoWithOneBomb:
             createEnemy(forceBomb: .never)
@@ -400,7 +437,7 @@ class GameScene: SKScene {
                         
                         node.removeFromParent()
                         activeEnemies.remove(at: index)
-                    } else if node.name == "bombContainer" {
+                    } else if node.name == "bombContainer" || node.name == "special" {
                         node.name = ""
                         node.removeFromParent()
                         activeEnemies.remove(at: index)

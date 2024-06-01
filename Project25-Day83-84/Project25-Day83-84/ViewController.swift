@@ -9,13 +9,14 @@ import UIKit
 import MultipeerConnectivity
 
 class ViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MCSessionDelegate, MCBrowserViewControllerDelegate {
-
+    
     var images = [UIImage]()
+    var texts = [Data]()
     
     var peerID = MCPeerID(displayName: UIDevice.current.name)
     var mcSession: MCSession?
     var mcAdvertiserAssistant: MCAdvertiserAssistant?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,9 +24,68 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(importPicture))
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showConnectionPrompt))
         
+        // * Bar Button Items
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        // Text Share Bar Button
+        let shareTextButton = UIBarButtonItem(title: "Share Text", style: .plain, target: self, action: #selector(importText))
+        // A Bar Button to List All Connected Devices
+        let connectedPeersButton = UIBarButtonItem(title: "All Devices", style: .plain, target: self, action: #selector(connectedPeers))
+        
+        toolbarItems = [connectedPeersButton, spacer, shareTextButton]
+        navigationController?.isToolbarHidden = false
+        
         mcSession = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         mcSession?.delegate = self
     }
+    
+    //Show all connected Peers
+    @objc func connectedPeers() {
+        guard let mcSession = mcSession else { return }
+        
+        var devicesList = [String]()
+        
+        for peer in mcSession.connectedPeers {
+            devicesList.append(peer.displayName)
+        }
+        
+        var message = devicesList.joined(separator: "\n")
+        
+        if devicesList.count == 0 {
+            message = "No devices are connected."
+        }
+        
+        let ac = UIAlertController(title: "All Devices", message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(ac, animated: true, completion: nil)
+    }
+    
+    @objc func importText() {
+        // Show an alert controller user can type and send
+        
+        let ac = UIAlertController(title: "Enter Text:", message: nil, preferredStyle: .alert)
+        ac.addTextField(configurationHandler: nil)
+        ac.addAction(UIAlertAction(title: "Share", style: .default, handler: { [weak self, weak ac] _ in
+            guard let text = ac?.textFields?[0].text else { return }
+            
+            // Convert String to Data
+            let text_data = Data(text.utf8)
+            
+            // Send Data
+            guard let mcSession = self?.mcSession else { return }
+            if mcSession.connectedPeers.count > 0 {
+                do {
+                    try mcSession.send(text_data, toPeers: mcSession.connectedPeers, with: .reliable)
+                } catch {
+                    let ac = UIAlertController(title: "Send Error", message: error.localizedDescription, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.present(ac, animated: true, completion: nil)
+                }
+            }
+        }))
+        present(ac, animated: true, completion: nil)
+        
+    }
+    
     
     func startHosting(action: UIAlertAction) {
         guard let mcSession = mcSession else { return }
@@ -97,6 +157,9 @@ class ViewController: UICollectionViewController, UINavigationControllerDelegate
             print("Connecting: \(peerID.displayName)")
         case .notConnected:
             print("Not Connected: \(peerID.displayName)")
+            let ac = UIAlertController(title: "\(peerID.displayName) has disconnected", message: nil, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(ac, animated: true, completion: nil)
         @unknown default:
             print("Unknow state received: \(peerID.displayName)")
         }

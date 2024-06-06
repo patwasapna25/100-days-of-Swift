@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        drawRectangle()
+//        drawRectangle()
+        spellTwin()
     }
     
     
@@ -162,6 +163,41 @@ class ViewController: UIViewController {
             
             let mouse = UIImage(named: "mouse")
             mouse?.draw(at: CGPoint(x: 300, y: 150))
+        }
+        
+        imageView.image = image
+    }
+    
+    func spellTwin() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let image = renderer.image { ctx in
+            
+            //T
+            ctx.cgContext.move(to: CGPoint(x: 100, y: 256))
+            ctx.cgContext.addLine(to: CGPoint(x: 100, y: 156))
+            ctx.cgContext.addLine(to: CGPoint(x: 40, y: 156))
+            ctx.cgContext.addLine(to: CGPoint(x: 160, y: 156))
+            
+            //W
+            ctx.cgContext.move(to: CGPoint(x: 165, y: 156))
+            ctx.cgContext.addLine(to: CGPoint(x: 195, y: 256))
+            ctx.cgContext.addLine(to: CGPoint(x: 215, y: 156))
+            ctx.cgContext.addLine(to: CGPoint(x: 235, y: 256))
+            ctx.cgContext.addLine(to: CGPoint(x: 255, y: 156))
+            
+            //I
+            ctx.cgContext.move(to: CGPoint(x: 265, y: 156))
+            ctx.cgContext.addLine(to: CGPoint(x: 265, y: 256))
+            
+            //N
+            ctx.cgContext.move(to: CGPoint(x: 275, y: 256))
+            ctx.cgContext.addLine(to: CGPoint(x: 275, y: 156))
+            ctx.cgContext.addLine(to: CGPoint(x: 325, y: 256))
+            ctx.cgContext.addLine(to: CGPoint(x: 325, y: 156))
+       
+            ctx.cgContext.setStrokeColor(UIColor.black.cgColor)
+            ctx.cgContext.strokePath()
         }
         
         imageView.image = image

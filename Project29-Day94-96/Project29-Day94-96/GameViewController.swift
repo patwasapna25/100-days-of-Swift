@@ -18,7 +18,9 @@ class GameViewController: UIViewController {
     @IBOutlet var velocityLabel: UILabel!
     @IBOutlet var launchButton: UIButton!
     @IBOutlet var playerNumber: UILabel!
-
+    @IBOutlet var player1: UILabel!
+    @IBOutlet var player2: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,5 +91,13 @@ class GameViewController: UIViewController {
         velocityLabel.isHidden = false
 
         launchButton.isHidden = false
+    }
+    
+    func updateScore(forPlayer player: Int, score: Int) {
+        if player == 1 {
+            player1.text = "Player1: \(score)"
+        } else {
+            player2.text = "Player2: \(score)"
+        }
     }
 }
